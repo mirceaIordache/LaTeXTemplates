@@ -1,0 +1,88 @@
+\include{preamble}
+
+\begin{document}
+	\title{Standard \LaTeX Preamble and Usage Examples}
+	\section{Algorithm Example}
+		\begin{algorithmic}	[1]
+			\LState $counter\gets Sketch.total$
+			\For{$h = 1$ \textbf{to} $H$}
+			\LState $i\gets Sketch[h].hash(k_1)$
+			\If{$Sketch[h][i].total \leq counter$}
+			\LState{$index\gets h$}
+			\LState{$hash\gets i$}
+			\LState{$counter\gets Sketch[h][i].total$}
+			\EndIf
+			\EndFor
+			\LState $result\gets Sketch[index][hash][k_2]$
+		\end{algorithmic}
+	\section{Theory Example}
+		\begin{lemma}
+			\label{thr:collision}
+			Let $h_1...h_n : \{1...k\} \to \{1...v\}$, $H$ be a set of sets $H_i$ where $h_i(x) \in H_i$, $S = \{h_i^{-1}(x) | x \in \bigcup H\}$.\\
+			\begin{displaymath}
+			\forall H_i \in H, |H_i| = \sum_{j}^{j \in S} \begin{cases}0 \textnormal{ if } h_i(j) \notin H_i\\
+			1 \textnormal{ otherwise}\end{cases}.
+			\end{displaymath}
+			\\
+		\end{lemma}
+		
+		\begin{corollary}
+			\label{cor:collision}
+			As a consequence of Lemma~\ref{thr:collision},
+			\begin{displaymath}
+			\forall H_i \in H, \sum_{j}^{j \in H_i}j = \sum_{j}^{j \in S}{\begin{cases}0 \textnormal{ if } h(j) \notin H_i\\
+				h(j) \textnormal{ otherwise}\end{cases}}.
+			\end{displaymath}
+			Therefore, if we were to remove an arbitrary element $x$ from $S$, then the sum would become:
+			\begin{displaymath}
+			\forall H_i \in H, \sum_{j}^{j \in H_i}j = \sum_{j}^{j \in S-\{x\}}{\begin{cases}0 \textnormal{ if } h(j) \notin H_i\\
+				h(j) \textnormal{ otherwise}\end{cases}} + h_i(x).
+			\end{displaymath}
+			Finally, this allows us to conclude that in the case of the sum of all elements in $S-\{x\}$ which have images in $H_i$ is equal to $\sum_{j}^{j \in H_i}{j - h_i(x)}$.
+		\end{corollary}
+	\section{Tikz Example}
+	
+		\begin{tikzpicture}
+		
+		\node[server](server 1){};
+		\node[server, right of= server 1](server 2){};
+		\node[server, right of= server 2](server 3){};
+		\node[server, right of= server 3](server 4){};
+		\node[server, right of= server 4](server 5){};
+		\node[server, right of= server 5](server 6){};
+		\node[server, right of= server 6](server 7){};
+		\node[server, right of= server 7](server 8){};
+		
+		\node[l3 switch, above of =server 5, xshift=0.1cm,yshift=0.3cm]
+		(l3 switch){};
+		
+		
+		\draw[thick,darkgray!10!gray] (server 1.north)--(l3 switch);
+		\draw[thick,darkgray!10!gray] (server 2.north)--(l3 switch);
+		\draw[thick,darkgray!10!gray] (server 3.north)--(l3 switch);
+		\draw[thick,darkgray!10!gray] (server 4.north)--(l3 switch);
+		\draw[thick,darkgray!10!gray] (server 5.north)--(l3 switch);
+		\draw[thick,darkgray!10!gray] (server 6.north)--(l3 switch);
+		\draw[thick,darkgray!10!gray] (server 7.north)--(l3 switch);
+		\draw[thick,darkgray!10!gray] (server 8.north)--(l3 switch);	
+		
+		\node[xshift=-1.05cm,yshift=0.2cm,left of = server 8,align=left](lev1){Computing Servers};
+		\node[xshift=-0.2cm,yshift=0.3cm,above of = lev1,align=left](lev2){L4 Open vSwitch};
+		
+		
+		%\begin{scope}
+		%	\node[my cloud, above of=l3 switch,font=\large] (it) {Internet}
+		%	\draw[thick,darkgray!10!gray] (l3 switch)--(it);
+		%\end{scope}
+		
+		\begin{scope}
+		\node[xshift=0.1cm, yshift=1cm,scale=0.2, above of=l3 switch] (brouter) {\router{}} edge[very thick,darkgray!10!gray] ([xshift=0.1cm,yshift=0.5cm]l3 switch);
+		
+		\node[yshift=0.65cm,my cloud, minimum width=1.25cm, minimum height=1.55cm, above of=brouter, font=\large] (it) {Internet}	edge[very thick,darkgray!30!gray] (brouter);
+		
+		%	\draw[very thick,darkgray!30!gray](brouter)--([xshift=0.1cm,yshift=0.125cm]border 1-a.north);
+		\end{scope}
+		
+		\end{tikzpicture}
+		
+\end{document}
