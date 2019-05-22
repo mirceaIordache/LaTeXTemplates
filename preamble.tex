@@ -1,4 +1,3 @@
-\documentclass{article}
 \usepackage{enumitem}
 
 \usepackage{amsmath}
@@ -21,8 +20,8 @@
 \usepackage{todonotes}
 \usepackage[bookmarks=false, draft, hidelinks]{hyperref}
 
-\input{defs/tikzdefs}
-\input{defs/algdefs}
+\subimport{defs/}{tikzdefs}
+\subimport{defs/}{algdefs}
 \newtheorem{theorem}{Theorem}
 \newtheorem{prf}{Proof}
 \newtheorem{lemma}{Lemma}
